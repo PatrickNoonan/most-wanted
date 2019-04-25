@@ -41,13 +41,29 @@ function mainMenu(person, people) {
       alert(person.firstName + " is a " + person.gender + ", who is " + age + " years old , and is " + person.height + " tall")
       break;
     case "family":
-      if ( person.spouse != null ){
-      alert(person.firstName + " has a spouse with the id of " + person.spouse + ", and parents with the id's of " + person.parents[0] + " and " + person.parents[1])
+      if (person.spouse != null) {
+        alert(person.firstName + " has a spouse with the id of " + person.spouse + ", and parents with the id's of " + person.parents[0] + " and " + person.parents[1])
+      } else {
+        alert(person.firstName + " has no spouse :'(");
       }
       break;
     case "descendants":
-    //Need to find descendants first
-      //alert(person.firstName + " has " + person)
+      let descendantArray = [];
+      let descendantString = descendantArray.join("");
+
+      findDescendants(person, people.length)
+      function findDescendants(person, count) {
+        if (count > 0) {
+          if (people[count].parents.length > 0) {
+            if (people[count].parents[0] == person.id || people[count].parents[1] == person.id) {
+              descendantArray.push(people[count].id)
+              return getName(people[count].id, count - 1)
+            }
+          }
+        }
+      }
+
+      alert(person.name + " has " + descendantArray.length + " descendants. (" + descendantString + " )")
       break;
     case "restart":
       app(people); // restart
@@ -106,7 +122,7 @@ function searchByTrait(people) {
 
   switch (chooseTraitTwo) {
     case firstTrait:
-       alert("You've already chosen this trait")
+      alert("You've already chosen this trait")
     case "gender":
       secondTrait = promptFor("What is the persons gender?", chars)
       break;
@@ -176,6 +192,15 @@ function chars(input) {
   return true; // default validation only
 }
 
-function familyFinder(people){
-  let idTransform = people.filter(function(el))
+//possibly not needed.
+function familyFinder(people) {
+  let idTransform = people.filter(function (person) {
+    if (person.gender === firstTrait && person.occupation === secondTrait) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  })
 }
+
