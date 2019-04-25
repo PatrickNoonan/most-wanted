@@ -27,22 +27,22 @@ function mainMenu(person, people) {
 
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
 
-  if (!person) {
-    alert("Could not find that individual.");
-    return app(people); // restart
-  }
+    if (!person) {
+        alert("Could not find that individual.");
+        return app(people); // restart
+    }
 
-  var displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+  var displayOption = prompt("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
   let currentYear = new Date().getFullYear();
-  let age = currentYear - person.dob;
-
+    let age = currentYear - person[0].dob;
+   
   switch (displayOption) {
     case "info":
-      alert(person.firstName + " is a " + person.gender + ", who is " + age + " years old , and is " + person.height + " tall")
+      alert(person[0].firstName + " is a " + person[0].gender + ", who is " + age + " years old , and is " + person[0].height + " tall")
       break;
     case "family":
-      if ( person.spouse != null ){
-      alert(person.firstName + " has a spouse with the id of " + person.spouse + ", and parents with the id's of " + person.parents[0] + " and " + person.parents[1])
+      if ( person[0].spouse != null ){
+      alert(person[0].firstName + " has a spouse with the id of " + person[0].spouse + ", and parents with the id's of " + person[0].parents[0] + " and " + person[0].parents[1])
       }
       break;
     case "descendants":
@@ -60,9 +60,10 @@ function mainMenu(person, people) {
 }
 
 function searchByName(people) {
-  var firstName = promptFor("What is the person's first name?", chars);
-  var lastName = promptFor("What is the person's last name?", chars);
-
+    var firstName = promptFor("What is the person's first name?", chars);
+    firstName = upperCase(firstName);
+    var lastName = promptFor("What is the person's last name?", chars);
+    lastName = upperCase(lastName);
   var foundPerson = people.filter(function (person) {
     if (person.firstName === firstName && person.lastName === lastName) {
       return true;
@@ -176,6 +177,10 @@ function chars(input) {
   return true; // default validation only
 }
 
-function familyFinder(people){
+/*function familyFinder(people){
   let idTransform = people.filter(function(el))
+}
+*/
+function upperCase(input) {
+    return input.charAt(0).toUpperCase() +input.slice(1);
 }
