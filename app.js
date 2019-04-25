@@ -33,16 +33,21 @@ function mainMenu(person, people) {
   }
 
   var displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+  let currentYear = new Date().getFullYear();
+  let age = currentYear - person.dob;
 
   switch (displayOption) {
     case "info":
-      // TODO: get person's info
+      alert(person.firstName + " is a " + person.gender + ", who is " + age + " years old , and is " + person.height + " tall")
       break;
     case "family":
-      // TODO: get person's family
+      if ( person.spouse != null ){
+      alert(person.firstName + " has a spouse with the id of " + person.spouse + ", and parents with the id's of " + person.parents[0] + " and " + person.parents[1])
+      }
       break;
     case "descendants":
-      // TODO: get person's descendants
+    //Need to find descendants first
+      //alert(person.firstName + " has " + person)
       break;
     case "restart":
       app(people); // restart
@@ -121,7 +126,8 @@ function searchByTrait(people) {
       secondTrait = promptFor("What is the persons occupation?", chars)
       break;
     default:
-      return "not a valid input";
+      alert("Not a valid input, restarting program :)");
+      return app(people);
   }
 
   var foundTrait = people.filter(function (person) {
@@ -132,7 +138,6 @@ function searchByTrait(people) {
       return false;
     }
   })
-  // TODO: find the person using the name they entered
   return foundTrait;
 }
 
@@ -169,4 +174,8 @@ function yesNo(input) {
 // helper function to pass in as default promptFor validation
 function chars(input) {
   return true; // default validation only
+}
+
+function familyFinder(people){
+  let idTransform = people.filter(function(el))
 }
