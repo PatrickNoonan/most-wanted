@@ -88,36 +88,15 @@ function mainMenu(person, people) {
               peopleToCheck.push(childrenArray[i])
             } 
             
-            allDescendants.push(personChecking.firstName);
+            allDescendants.push(personChecking.firstName + " " + personChecking.lastName);
             count= peopleToCheck.length;
             peopleToCheck.shift();
 
             return findChildren(peopleToCheck[0], count-1);
           } else {
-            alert(allDescendants[0] + "'s family tree is." + allDescendants.join(" "));
+            alert(allDescendants[0] + "'s family tree is, " + allDescendants.join(", ") + ".");
           }
       }
-
-      /*
-        let childrenArray = [];      
-        findDescendants(person[0], people.length - 1);
-        let descendantsArray = childrenArray.map(function(el){
-          return findDescendants(el, people.length -1);
-        });
-  
-        function findDescendants(person, count) {
-          if (count > 0) {
-            if (people[count].parents[0] == person.id || people[count].parents[1] == person.id) {
-              childrenArray.push(people[count].firstName)
-              return findDescendants(person, count - 1)
-            } else {
-              return findDescendants(person, count - 1)
-            }
-          }
-          else alert("The descendant id's are " + childrenArray);
-        }
-        alert(person.name + " has " + childrenArray.length + " descendants. (" + descendantString + " )")
-        */
       break;
     case "restart":
       app(people); // restart
