@@ -46,7 +46,15 @@ function mainMenu(person, people) {
 
 
 
-  switch (displayOption) {
+    switch (displayOption) {
+        case "immediate family":
+
+            let immedFamily = people.filter(function (person) {
+                if (person[0].id === firstName && person.lastName === lastName) {
+                    return true;
+
+
+            break;
     case "info":
           alert(person[0].firstName + person[0].lastName + " is a " + person[0].gender + ", who is " + age + " years old , and is " + person[0].height + " inches tall, aswell as an eye color of " + person[0].eyeColor + " and a weight of " + person[0].weight);
       break;
