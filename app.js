@@ -34,22 +34,23 @@ function mainMenu(person, people) {
 
   var displayOption = prompt("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
   let currentYear = new Date().getFullYear();
-    let age = currentYear - person[0].dob;
-   
+    let dobSpl = person[0].dob.split('/');
+    let age = dobSpl.splice(0, 2) - currentYear;
+        
+    }
+    console.log(age);
+    
   switch (displayOption) {
     case "info":
       alert(person[0].firstName + " is a " + person[0].gender + ", who is " + age + " years old , and is " + person[0].height + " tall")
       break;
     case "family":
-<<<<<<< HEAD
-      if ( person[0].spouse != null ){
-      alert(person[0].firstName + " has a spouse with the id of " + person[0].spouse + ", and parents with the id's of " + person[0].parents[0] + " and " + person[0].parents[1])
-=======
+
       if (person.spouse != null) {
         alert(person[0].firstName + " has a spouse with the id of " + person[0].spouse + ", and parents with the id's of " + person[0].parents[0] + " and " + person[0].parents[1])
       } else {
         alert(person[0].firstName + " has no spouse :'(");
->>>>>>> e870fabfd02db87b7405014228b6b3b163c25152
+
       }
       break;
     case "descendants":
@@ -74,7 +75,7 @@ function mainMenu(person, people) {
       app(people); // restart
       break;
     case "quit":
-      return; // stop execution
+      break; // stop execution
     default:
       return mainMenu(person, people); // ask again
   }
@@ -82,9 +83,9 @@ function mainMenu(person, people) {
 
 function searchByName(people) {
     var firstName = promptFor("What is the person's first name?", chars);
-    firstName = upperCase(firstName);
+  
     var lastName = promptFor("What is the person's last name?", chars);
-    lastName = upperCase(lastName);
+  
   var foundPerson = people.filter(function (person) {
     if (person.firstName === firstName && person.lastName === lastName) {
       return true;
@@ -198,16 +199,8 @@ function chars(input) {
   return true; // default validation only
 }
 
-<<<<<<< HEAD
-/*function familyFinder(people){
-  let idTransform = people.filter(function(el))
-}
-*/
-function upperCase(input) {
-    return input.charAt(0).toUpperCase() +input.slice(1);
-}
-=======
-//possibly not needed.
+
+
 function familyFinder(people) {
   let idTransform = people.filter(function (person) {
     if (person.gender === firstTrait && person.occupation === secondTrait) {
@@ -219,4 +212,3 @@ function familyFinder(people) {
   })
 }
 
->>>>>>> e870fabfd02db87b7405014228b6b3b163c25152
