@@ -34,13 +34,19 @@ function mainMenu(person, people) {
 
   var displayOption = prompt("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
   let currentYear = new Date().getFullYear();
-  let age = currentYear - person[0].dob;
+
+  let justYear = person[0].dob.split('/');
+  let age = currentYear - justYear[2];
+  console.log(age);
+
+
 
   switch (displayOption) {
     case "info":
-      alert(person[0].firstName + " is a " + person[0].gender + ", who is " + age + " years old , and is " + person[0].height + " tall")
+      alert(person[0].firstName + " is a " + person[0].gender + ", who is " + age + " years old , and is " + person[0].height + " inches tall")
       break;
     case "family":
+
       if (person[0].currentSpouse != null && person[0].parents.length == 2) {
         alert(person[0].firstName + " " + person[0].lastName + " has a spouse with the id of " + person[0].currentSpouse + ", and parents with the id's of " + person[0].parents[0] + " and " + person[0].parents[1]);
       } else if (person[0].currentSpouse != null && person[0].parents.length == 1) {
@@ -49,27 +55,61 @@ function mainMenu(person, people) {
         alert(person[0].firstName + " " + person[0].lastName + " has a spouse with the id of " + person[0].currentSpouse + ", and the parents are unknown");
       } else if (person[0].currentSpouse == null) {
         alert(person[0].firstName + " " + person[0].lastName + " has parents with the id's of " + person[0].parents[0] + " and " + person[0].parents[1] + ", but has no spouse :( poor " + person[0].firstName + ".");
+
       }
       break;
     case "descendants":
-      let descendantArray = [];
-      let descendantString = descendantArray.join("");
-      findDescendants(person[0], people.length - 1);
+      let peopleToCheck = [person[0]];
+      let allDescendants = [];
+    
+      findChildren(peopleToCheck[0], peopleToCheck.length);
 
-      function findDescendants(person, count) {
-        if (count > 0) {
-          if (people[count].parents.length > 0 && (people[count].parents[0] == person.id || people[count].parents[1] == person.id)) {
-            descendantArray.push(people[count].id)
-            return findDescendants(people[count - 1], count - 1)
+      function findChildren(personChecking, count) {  
+
+          if (count > 0){
+
+            let childrenArray = people.filter(function(el){
+              if (el.parents[0] == personChecking.id || el.parents[1] == personChecking.id){
+                return true;
+              } else {
+                return false;
+              }
+            });
+
+            for (let i = 0; i < childrenArray.length; i++){
+              peopleToCheck.push(childrenArray[i])
+            } 
+            
+            allDescendants.push(personChecking.firstName);
+            count= peopleToCheck.length;
+            peopleToCheck.shift();
+
+            return findChildren(peopleToCheck[0], count-1);
           } else {
-            return findDescendants(people[count - 1], count - 1)
+            alert("The descendant id's are " + allDescendants);
           }
-        }
-        else alert("The descendant id's are " + descendantString);
       }
 
-
-      alert(person.name + " has " + descendantArray.length + " descendants. (" + descendantString + " )")
+      /*
+        let childrenArray = [];      
+        findDescendants(person[0], people.length - 1);
+        let descendantsArray = childrenArray.map(function(el){
+          return findDescendants(el, people.length -1);
+        });
+  
+        function findDescendants(person, count) {
+          if (count > 0) {
+            if (people[count].parents[0] == person.id || people[count].parents[1] == person.id) {
+              childrenArray.push(people[count].firstName)
+              return findDescendants(person, count - 1)
+            } else {
+              return findDescendants(person, count - 1)
+            }
+          }
+          else alert("The descendant id's are " + childrenArray);
+        }
+        alert(person.name + " has " + childrenArray.length + " descendants. (" + descendantString + " )")
+        */
       break;
     case "restart":
       app(people); // restart
@@ -82,10 +122,12 @@ function mainMenu(person, people) {
 }
 
 function searchByName(people) {
+
   var firstName = promptFor("What is the person's first name?", chars);
-  firstName = upperCase(firstName);
+
   var lastName = promptFor("What is the person's last name?", chars);
-  lastName = upperCase(lastName);
+
+
   var foundPerson = people.filter(function (person) {
     if (person.firstName === firstName && person.lastName === lastName) {
       return true;
@@ -199,12 +241,3 @@ function chars(input) {
   return true; // default validation only
 }
 
-/*function familyFinder(people){
-  let idTransform = people.filter(function(el))
-}
-
-function upperCase(input) {
-  return input.charAt(0).toUpperCase() + input.slice(1);
-}
-
-*/
