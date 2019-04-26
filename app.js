@@ -27,41 +27,47 @@ function mainMenu(person, people) {
 
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
 
-    if (!person) {
-        alert("Could not find that individual.");
-        return app(people); // restart
-    }
+  if (!person) {
+    alert("Could not find that individual.");
+    return app(people); // restart
+  }
 
   var displayOption = prompt("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
   let currentYear = new Date().getFullYear();
+
     let dobSpl = person[0].dob.split('/');
     let age = dobSpl.splice(0, 2) - currentYear;
         
     }
     console.log(age);
     
+
   switch (displayOption) {
     case "info":
       alert(person[0].firstName + " is a " + person[0].gender + ", who is " + age + " years old , and is " + person[0].height + " tall")
       break;
     case "family":
 
-      if (person.spouse != null) {
-        alert(person[0].firstName + " has a spouse with the id of " + person[0].spouse + ", and parents with the id's of " + person[0].parents[0] + " and " + person[0].parents[1])
-      } else {
-        alert(person[0].firstName + " has no spouse :'(");
+      if (person[0].currentSpouse != null && person[0].parents.length == 2) {
+        alert(person[0].firstName + " " + person[0].lastName + " has a spouse with the id of " + person[0].currentSpouse + ", and parents with the id's of " + person[0].parents[0] + " and " + person[0].parents[1]);
+      } else if (person[0].currentSpouse != null && person[0].parents.length == 1) {
+        alert(person[0].firstName + " " + person[0].lastName + " has a spouse with the id of " + person[0].currentSpouse + ", and a parent with the id of " + person[0].parents[0]);
+      } else if (person[0].currentSpouse != null && person[0].parents.length == 0) {
+        alert(person[0].firstName + " " + person[0].lastName + " has a spouse with the id of " + person[0].currentSpouse + ", and the parents are unknown");
+      } else if (person[0].currentSpouse == null) {
+        alert(person[0].firstName + " " + person[0].lastName + " has parents with the id's of " + person[0].parents[0] + " and " + person[0].parents[1] + ", but has no spouse :( poor " + person[0].firstName + ".");
 
       }
       break;
     case "descendants":
       let descendantArray = [];
       let descendantString = descendantArray.join("");
+      findDescendants(person[0], people.length-1);
 
-      findDescendants(person, people.length)
       function findDescendants(person, count) {
         if (count > 0) {
           if (people[count].parents.length > 0) {
-            if (people[count].parents[0] == person.id || people[count].parents[1] == person.id) {
+            if (people[count].parents[0] == person[0].id || people[count].parents[1] == person[0].id) {
               descendantArray.push(people[count].id)
               return getName(people[count].id, count - 1)
             }
@@ -82,10 +88,12 @@ function mainMenu(person, people) {
 }
 
 function searchByName(people) {
+
     var firstName = promptFor("What is the person's first name?", chars);
   
     var lastName = promptFor("What is the person's last name?", chars);
   
+
   var foundPerson = people.filter(function (person) {
     if (person.firstName === firstName && person.lastName === lastName) {
       return true;
@@ -201,6 +209,7 @@ function chars(input) {
 
 
 
+
 function familyFinder(people) {
   let idTransform = people.filter(function (person) {
     if (person.gender === firstTrait && person.occupation === secondTrait) {
@@ -211,4 +220,5 @@ function familyFinder(people) {
     }
   })
 }
+
 
