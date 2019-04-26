@@ -29,7 +29,14 @@ function mainMenu(person, people) {
     alert("Could not find that individual.");
     return app(people); // restart
   }
-
+    if (person.length > 1) {
+        alert("More than one person was found with these traits. The list of people that match these traits are ")
+        for (let i = 0; i < person.length; i++) {
+            alert(person[i].firstName + ' '+ person[i].lastName);
+        };
+            return app(people);
+        
+    } 
   var displayOption = prompt("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
   let currentYear = new Date().getFullYear();
 
