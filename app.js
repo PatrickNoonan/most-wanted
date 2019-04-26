@@ -2,7 +2,6 @@
 /*
 Build all of your functions for displaying and gathering information below (GUI).
 */
-
 // app is the function called to start the entire application
 function app(people) {
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
@@ -12,7 +11,6 @@ function app(people) {
       mainMenu(foundPerson, people);
       break;
     case 'no':
-      promptFor("Do you know the traits of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
       foundPerson = searchByTrait(people);
       mainMenu(foundPerson, people)
       break;
@@ -27,7 +25,7 @@ function mainMenu(person, people) {
 
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
 
-  if (!person) {
+    if (!person[0]) {
     alert("Could not find that individual.");
     return app(people); // restart
   }
@@ -127,7 +125,7 @@ function searchByTrait(people) {
     case "weight":
       firstTrait = promptFor("What is the persons weight?", chars)
       break;
-    case "eyeColor":
+    case "eyecolor":
       firstTrait = promptFor("What is the persons eye color?", chars)
       break;
     case "occupation":
@@ -164,7 +162,7 @@ function searchByTrait(people) {
   }
 
   var foundTrait = people.filter(function (person) {
-    if (person.gender === firstTrait && person.occupation === secondTrait) {
+      if (person[chooseTraitOne] === firstTrait && person[chooseTraitTwo] === secondTrait) {
       return true;
     }
     else {
