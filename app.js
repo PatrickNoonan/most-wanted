@@ -94,7 +94,7 @@ function mainMenu(person, people) {
 
             return findChildren(peopleToCheck[0], count-1);
           } else {
-            alert("The descendant id's are " + allDescendants);
+            alert(allDescendants[0] + "'s family tree is." + allDescendants.join(" "));
           }
       }
 
