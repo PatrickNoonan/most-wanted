@@ -35,16 +35,15 @@ function mainMenu(person, people) {
   var displayOption = prompt("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
   let currentYear = new Date().getFullYear();
 
-    let dobSpl = person[0].dob.split('/');
-    let age = dobSpl.splice(0, 2) - currentYear;
-        
-    }
+    let justYear = person[0].dob.split('/');
+    let age = currentYear - justYear[2];
     console.log(age);
+    
     
 
   switch (displayOption) {
     case "info":
-      alert(person[0].firstName + " is a " + person[0].gender + ", who is " + age + " years old , and is " + person[0].height + " tall")
+      alert(person[0].firstName + " is a " + person[0].gender + ", who is " + age + " years old , and is " + person[0].height + " inches tall")
       break;
     case "family":
 
@@ -81,7 +80,7 @@ function mainMenu(person, people) {
       app(people); // restart
       break;
     case "quit":
-      break; // stop execution
+      return; // stop execution
     default:
       return mainMenu(person, people); // ask again
   }
