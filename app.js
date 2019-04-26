@@ -43,20 +43,23 @@ function mainMenu(person, people) {
 
   switch (displayOption) {
     case "info":
-      alert(person[0].firstName + " is a " + person[0].gender + ", who is " + age + " years old , and is " + person[0].height + " inches tall")
+          alert(person[0].firstName + person[0].lastName + " is a " + person[0].gender + ", who is " + age + " years old , and is " + person[0].height + " inches tall, aswell as an eye color of " + person[0].eyeColor + " and a weight of " + person[0].weight);
       break;
     case "family":
 
-      if (person[0].currentSpouse != null && person[0].parents.length == 2) {
-        alert(person[0].firstName + " " + person[0].lastName + " has a spouse with the id of " + person[0].currentSpouse + ", and parents with the id's of " + person[0].parents[0] + " and " + person[0].parents[1]);
-      } else if (person[0].currentSpouse != null && person[0].parents.length == 1) {
-        alert(person[0].firstName + " " + person[0].lastName + " has a spouse with the id of " + person[0].currentSpouse + ", and a parent with the id of " + person[0].parents[0]);
-      } else if (person[0].currentSpouse != null && person[0].parents.length == 0) {
-        alert(person[0].firstName + " " + person[0].lastName + " has a spouse with the id of " + person[0].currentSpouse + ", and the parents are unknown");
-      } else if (person[0].currentSpouse == null) {
-        alert(person[0].firstName + " " + person[0].lastName + " has parents with the id's of " + person[0].parents[0] + " and " + person[0].parents[1] + ", but has no spouse :( poor " + person[0].firstName + ".");
-
-      }
+          if (person[0].currentSpouse != null && person[0].parents.length == 2) {
+              alert(person[0].firstName + " " + person[0].lastName + " has a spouse with the id of " + person[0].currentSpouse + ", and parents with the id's of " + person[0].parents[0] + " and " + person[0].parents[1]);
+          } else if (person[0].currentSpouse != null && person[0].parents.length == 1) {
+              alert(person[0].firstName + " " + person[0].lastName + " has a spouse with the id of " + person[0].currentSpouse + ", and a parent with the id of " + person[0].parents[0]);
+          } else if (person[0].currentSpouse != null && person[0].parents.length == 0) {
+              alert(person[0].firstName + " " + person[0].lastName + " has a spouse with the id of " + person[0].currentSpouse + ", and the parents are unknown");
+          } else if (person[0].currentSpouse == null && person[0].parents.length == 2) {
+              alert(person[0].firstName + " " + person[0].lastName + " has parents with the id's of " + person[0].parents[0] + " and " + person[0].parents[1] + ", but has no spouse :( poor " + person[0].firstName + ".");
+          } else if (person[0].currentSpouse == null && person[0].parents.length == 1) {
+              alert(person[0].firstName + " " + person[0].lastName + " has parents with the id's of " + person[0].parents[0] + ", but has no spouse :( poor " + person[0].firstName + ".");
+          } else if (person[0].currentSpouse == null && person[0].parents.length == 0) {
+              alert(person[0].firstName + " " + person[0].lastName + " has unknown parents, and has no spouse. :( Poor " + person[0].firstName + ".");
+          }
       break;
     case "descendants":
       let descendantArray = [];
