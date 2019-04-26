@@ -27,39 +27,79 @@ function app(people) {
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people) {
 
-  /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
-
-  if (!person[0]) {
-    alert("Could not find that individual.");
-    return app(people); // restart
-  }
-  if (person.length > 1) {
-    alert("More than one person was found with these traits. The list of people that match these traits are ")
-    for (let i = 0; i < person.length; i++) {
-      alert(person[i].firstName + ' ' + person[i].lastName);
-    };
-    return app(people);
-
-  }
-  var displayOption = prompt("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
-  let currentYear = new Date().getFullYear();
-
-  let justYear = person[0].dob.split('/');
-  let age = currentYear - justYear[2];
-  console.log(age);
+    /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
 
 
+    if (!person[0]) {
+        alert("Could not find that individual.");
+        return app(people); // restart
+    }
+    if (person.length > 1) {
+        alert("More than one person was found with these traits. The list of people that match these traits are ")
+        for (let i = 0; i < person.length; i++) {
+            alert(person[i].firstName + ' ' + person[i].lastName);
+        };
+        return app(people);
 
-  switch (displayOption) {
-    case "immediate family":
+    }
+    var displayOption = prompt("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', 'immediate family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+    let currentYear = new Date().getFullYear();
 
-      let immedFamily = people.filter(function (person) {
-        if (person[0].id === firstName && person.lastName === lastName) {
-          return true;
+    let justYear = person[0].dob.split('/');
+    let age = currentYear - justYear[2];
 
-        }
-      });
-      break;
+
+
+
+
+
+    switch (displayOption) {
+        case "immediate family":
+            //checks for parents of person and gives name
+            let immedParentsArray = people.filter(function (el) {
+                if (el.id == person[0].parents[0] || el.id == person[0].parents[1]) {
+                            return true;
+                        } else {
+                            return false
+                        }
+                    if (immedParentsArray.length >= 0){
+                        for (let i = 0; i < immedParentsArray.length; i++) {
+                            alert(immedParentsArray[i].firstName + " " + immedParentsArray[i].lastName + " is the parent of " + person[0].firstName + " " + person[0].lastName + ".")
+                            }
+                        } else { alert(person[0] + " has no surviving parents.")};
+                });
+            
+
+
+            //checks for children of person and gives name
+            let immedChildrenArray = people.filter(function (el) {
+                if (el.parents[0] == person[0].id || el.parents[1] == person[0].id) { 
+                    return true;
+                } else {
+                    return false
+                } if (immedChildrenArray.length >= 0){
+                    for (let i = 0; i < immedChildrenArray.length; i++) {
+                        alert(immedChildrenArray[i].firstName + " " + immedChildrenArray[i].lastName + " is the child of " + person[0].firstName + " " + person[0].lastName + ".")
+                    }
+                    } else { alert(person[0] + " has no surviving children." )}
+            });
+
+            //checks for spouse of person and gives name
+            let immedSpouseArray = people.filter(function (el) {
+                if (el.spouse == person[0].id) {
+                    return true;
+                } else {
+                    return false
+                } if (immedSpouseArray.length >= 0) {
+                    for (let i = 0; i < immedChildrenArray.length; i++) {
+                        alert(immedSpouseArray[i].firstName + " " + immedSpouseArray[i].lastName + " is the spouse of " + person[0].firstName + " " + person[0].lastName + ".")
+                    }
+                } else { alert(person[0] + " has no surviving spouses.") }
+            });
+            
+            
+         break;
+
     case "info":
       alert(person[0].firstName + person[0].lastName + " is a " + person[0].gender + ", who is " + age + " years old , and is " + person[0].height + " inches tall, aswell as an eye color of " + person[0].eyeColor + " and a weight of " + person[0].weight);
       break;
