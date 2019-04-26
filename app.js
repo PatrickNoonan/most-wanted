@@ -54,18 +54,20 @@ function mainMenu(person, people) {
     case "descendants":
       let descendantArray = [];
       let descendantString = descendantArray.join("");
-      findDescendants(person[0], people.length-1);
+      findDescendants(person[0], people.length - 1);
 
       function findDescendants(person, count) {
         if (count > 0) {
-          if (people[count].parents.length > 0) {
-            if (people[count].parents[0] == person[0].id || people[count].parents[1] == person[0].id) {
-              descendantArray.push(people[count].id)
-              return getName(people[count].id, count - 1)
-            }
+          if (people[count].parents.length > 0 && (people[count].parents[0] == person.id || people[count].parents[1] == person.id)) {
+            descendantArray.push(people[count].id)
+            return findDescendants(people[count - 1], count - 1)
+          } else {
+            return findDescendants(people[count - 1], count - 1)
           }
         }
+        else alert("The descendant id's are " + descendantString);
       }
+
 
       alert(person.name + " has " + descendantArray.length + " descendants. (" + descendantString + " )")
       break;
@@ -200,7 +202,9 @@ function chars(input) {
 /*function familyFinder(people){
   let idTransform = people.filter(function(el))
 }
-*/
+
 function upperCase(input) {
   return input.charAt(0).toUpperCase() + input.slice(1);
 }
+
+*/
