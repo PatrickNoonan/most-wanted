@@ -2,7 +2,6 @@
 /*
 Build all of your functions for displaying and gathering information below (GUI).
 */
-
 // app is the function called to start the entire application
 function app(people) {
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
@@ -12,7 +11,6 @@ function app(people) {
       mainMenu(foundPerson, people);
       break;
     case 'no':
-      promptFor("Do you know the traits of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
       foundPerson = searchByTrait(people);
       mainMenu(foundPerson, people)
       break;
@@ -27,11 +25,18 @@ function mainMenu(person, people) {
 
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
 
-  if (!person) {
+    if (!person[0]) {
     alert("Could not find that individual.");
     return app(people); // restart
   }
-
+    if (person.length > 1) {
+        alert("More than one person was found with these traits. The list of people that match these traits are ")
+        for (let i = 0; i < person.length; i++) {
+            alert(person[i].firstName + ' '+ person[i].lastName);
+        };
+            return app(people);
+        
+    } 
   var displayOption = prompt("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
   let currentYear = new Date().getFullYear();
 
@@ -43,20 +48,23 @@ function mainMenu(person, people) {
 
   switch (displayOption) {
     case "info":
-      alert(person[0].firstName + " is a " + person[0].gender + ", who is " + age + " years old , and is " + person[0].height + " inches tall")
+          alert(person[0].firstName + person[0].lastName + " is a " + person[0].gender + ", who is " + age + " years old , and is " + person[0].height + " inches tall, aswell as an eye color of " + person[0].eyeColor + " and a weight of " + person[0].weight);
       break;
     case "family":
 
-      if (person[0].currentSpouse != null && person[0].parents.length == 2) {
-        alert(person[0].firstName + " " + person[0].lastName + " has a spouse with the id of " + person[0].currentSpouse + ", and parents with the id's of " + person[0].parents[0] + " and " + person[0].parents[1]);
-      } else if (person[0].currentSpouse != null && person[0].parents.length == 1) {
-        alert(person[0].firstName + " " + person[0].lastName + " has a spouse with the id of " + person[0].currentSpouse + ", and a parent with the id of " + person[0].parents[0]);
-      } else if (person[0].currentSpouse != null && person[0].parents.length == 0) {
-        alert(person[0].firstName + " " + person[0].lastName + " has a spouse with the id of " + person[0].currentSpouse + ", and the parents are unknown");
-      } else if (person[0].currentSpouse == null) {
-        alert(person[0].firstName + " " + person[0].lastName + " has parents with the id's of " + person[0].parents[0] + " and " + person[0].parents[1] + ", but has no spouse :( poor " + person[0].firstName + ".");
-
-      }
+          if (person[0].currentSpouse != null && person[0].parents.length == 2) {
+              alert(person[0].firstName + " " + person[0].lastName + " has a spouse with the id of " + person[0].currentSpouse + ", and parents with the id's of " + person[0].parents[0] + " and " + person[0].parents[1]);
+          } else if (person[0].currentSpouse != null && person[0].parents.length == 1) {
+              alert(person[0].firstName + " " + person[0].lastName + " has a spouse with the id of " + person[0].currentSpouse + ", and a parent with the id of " + person[0].parents[0]);
+          } else if (person[0].currentSpouse != null && person[0].parents.length == 0) {
+              alert(person[0].firstName + " " + person[0].lastName + " has a spouse with the id of " + person[0].currentSpouse + ", and the parents are unknown");
+          } else if (person[0].currentSpouse == null && person[0].parents.length == 2) {
+              alert(person[0].firstName + " " + person[0].lastName + " has parents with the id's of " + person[0].parents[0] + " and " + person[0].parents[1] + ", but has no spouse :( poor " + person[0].firstName + ".");
+          } else if (person[0].currentSpouse == null && person[0].parents.length == 1) {
+              alert(person[0].firstName + " " + person[0].lastName + " has parents with the id's of " + person[0].parents[0] + ", but has no spouse :( poor " + person[0].firstName + ".");
+          } else if (person[0].currentSpouse == null && person[0].parents.length == 0) {
+              alert(person[0].firstName + " " + person[0].lastName + " has unknown parents, and has no spouse. :( Poor " + person[0].firstName + ".");
+          }
       break;
     case "descendants":
       let peopleToCheck = [person[0]];
@@ -159,7 +167,7 @@ function searchByTrait(people) {
     case "weight":
       firstTrait = promptFor("What is the persons weight?", chars)
       break;
-    case "eyeColor":
+    case "eyecolor":
       firstTrait = promptFor("What is the persons eye color?", chars)
       break;
     case "occupation":
@@ -196,7 +204,7 @@ function searchByTrait(people) {
   }
 
   var foundTrait = people.filter(function (person) {
-    if (person.gender === firstTrait && person.occupation === secondTrait) {
+      if (person[chooseTraitOne] === firstTrait && person[chooseTraitTwo] === secondTrait) {
       return true;
     }
     else {
