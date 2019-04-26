@@ -46,9 +46,9 @@ function mainMenu(person, people) {
       alert(person[0].firstName + " has a spouse with the id of " + person[0].spouse + ", and parents with the id's of " + person[0].parents[0] + " and " + person[0].parents[1])
 =======
       if (person.spouse != null) {
-        alert(person.firstName + " has a spouse with the id of " + person.spouse + ", and parents with the id's of " + person.parents[0] + " and " + person.parents[1])
+        alert(person[0].firstName + " has a spouse with the id of " + person[0].spouse + ", and parents with the id's of " + person[0].parents[0] + " and " + person[0].parents[1])
       } else {
-        alert(person.firstName + " has no spouse :'(");
+        alert(person[0].firstName + " has no spouse :'(");
 >>>>>>> e870fabfd02db87b7405014228b6b3b163c25152
       }
       break;
