@@ -42,7 +42,7 @@ function mainMenu(person, people) {
         return app(people);
 
     }
-    var displayOption = prompt("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', 'immediate family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+    var displayOption = promptFor("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', 'immediate family', or 'descendants'? Type the option you want or 'restart' or 'quit'",chars);
     let currentYear = new Date().getFullYear();
 
     let justYear = person[0].dob.split('/');
@@ -168,9 +168,9 @@ function mainMenu(person, people) {
 function searchByName(people) {
 
   var firstName = promptFor("What is the person's first name?", chars);
-
+    firstName = justCapsFirst(firstName);
   var lastName = promptFor("What is the person's last name?", chars);
-
+    lastName = justCapsFirst(lastName);
 
   var foundPerson = people.filter(function (person) {
     if (person.firstName === firstName && person.lastName === lastName) {
@@ -193,22 +193,29 @@ function searchByTrait(people) {
   switch (chooseTraitOne) {
     case "gender":
       firstTrait = promptFor("What is the persons gender?", chars)
-      break;
+          firstTrait = justLow(firstTrait);
+          break;
     case "dob":
       firstTrait = promptFor("What is the persons date of birth?", chars)
-      break;
+          firstTrait = justLow(firstTrait);
+          break;
     case "height":
       firstTrait = promptFor("What is the persons height?", chars)
-      break;
+          firstTrait = justLow(firstTrait);
+          break;
     case "weight":
       firstTrait = promptFor("What is the persons weight?", chars)
-      break;
+          firstTrait = justLow(firstTrait);
+          firstTrait = capC(firstTrait);
+          break;
     case "eyecolor":
       firstTrait = promptFor("What is the persons eye color?", chars)
-      break;
+          firstTrait = justLow(firstTrait);
+          break;
     case "occupation":
       firstTrait = promptFor("What is the persons occupation?", chars)
-      break;
+          firstTrait = justLow(firstTrait);
+          break;
     default:
       return "not a valid input";
   }
@@ -218,22 +225,29 @@ function searchByTrait(people) {
       alert("You've already chosen this trait")
     case "gender":
       secondTrait = promptFor("What is the persons gender?", chars)
-      break;
+          secondTrait = justLow(secondTrait);
+          break;
     case "dob":
       secondTrait = promptFor("What is the persons date of birth?", chars)
-      break;
+          secondTrait = justLow(secondTrait);
+          break;
     case "height":
       secondTrait = promptFor("What is the persons height?", chars)
-      break;
+          secondTrait = justLow(secondTrait);
+          break;
     case "weight":
       secondTrait = promptFor("What is the persons weight?", chars)
-      break;
+          secondTrait = justLow(secondTrait);
+          break;
     case "eyeColor":
       secondTrait = promptFor("What is the persons eye color?", chars)
-      break;
+          secondTrait = justLow(secondTrait);
+          secondTrait = capC(secondTrait);
+          break;
     case "occupation":
       secondTrait = promptFor("What is the persons occupation?", chars)
-      break;
+          secondTrait = justLow(secondTrait);
+          break;
     default:
       alert("Not a valid input, restarting program :)");
       return app(people);
@@ -305,4 +319,20 @@ function chars(input) {
   }
 }
 
+function justCapsFirst(input) {
+    let justLow = input.toLowerCase()
+    let firstCap = justLow.charAt(0).toUpperCase() + justLow.slice(1);
+    return firstCap;
+};
 
+
+function capC(input) {
+    let split = input.split('');
+    split.splice(3, 1, 'C')
+    let joined = thing.join('');
+    return joined
+}
+
+function justLow(input) {
+    return input.toLowerCase()
+}
