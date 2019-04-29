@@ -185,36 +185,40 @@ function searchByName(people) {
 }
 
 function searchByTrait(people) {
-  let chooseTraitOne = promptFor("What is persons the first trait you know? (gender, dob, height, weight, eyecolor, or occupation)", chars)
-  let chooseTraitTwo = promptFor("What is persons the second trait you know? (gender, dob, height, weight, eyecolor, or occupation)", chars)
+    let chooseTraitOne = promptFor("What is persons the first trait you know? (gender, dob, height, weight, eyecolor, or occupation)", chars)
+    chooseTraitOne = justLow(chooseTraitOne)
+    
+    let chooseTraitTwo = promptFor("What is persons the second trait you know? (gender, dob, height, weight, eyecolor, or occupation)", chars)
+    chooseTraitTwo = justLow(chooseTraitTwo)
+    
   let firstTrait;
   let secondTrait;
 
   switch (chooseTraitOne) {
     case "gender":
       firstTrait = promptFor("What is the persons gender?", chars)
-          firstTrait = justLow(firstTrait);
+          
           break;
     case "dob":
       firstTrait = promptFor("What is the persons date of birth?", chars)
-          firstTrait = justLow(firstTrait);
+          
           break;
     case "height":
       firstTrait = promptFor("What is the persons height?", chars)
-          firstTrait = justLow(firstTrait);
+          
           break;
     case "weight":
       firstTrait = promptFor("What is the persons weight?", chars)
-          firstTrait = justLow(firstTrait);
+          
           break;
     case "eyecolor":
       firstTrait = promptFor("What is the persons eye color?", chars)
-          firstTrait = justLow(firstTrait);
+          
           firstTrait = capC(firstTrait);
           break;
     case "occupation":
       firstTrait = promptFor("What is the persons occupation?", chars)
-          firstTrait = justLow(firstTrait);
+          
           break;
     default:
       return "not a valid input";
@@ -225,28 +229,27 @@ function searchByTrait(people) {
       alert("You've already chosen this trait")
     case "gender":
       secondTrait = promptFor("What is the persons gender?", chars)
-          secondTrait = justLow(secondTrait);
+          
           break;
     case "dob":
       secondTrait = promptFor("What is the persons date of birth?", chars)
-          secondTrait = justLow(secondTrait);
+          
           break;
     case "height":
       secondTrait = promptFor("What is the persons height?", chars)
-          secondTrait = justLow(secondTrait);
+          
           break;
     case "weight":
       secondTrait = promptFor("What is the persons weight?", chars)
-          secondTrait = justLow(secondTrait);
+          
           break;
     case "eyeColor":
       secondTrait = promptFor("What is the persons eye color?", chars)
-          secondTrait = justLow(secondTrait);
+          
           secondTrait = capC(secondTrait);
           break;
     case "occupation":
       secondTrait = promptFor("What is the persons occupation?", chars)
-          secondTrait = justLow(secondTrait);
           break;
     default:
       alert("Not a valid input, restarting program :)");
@@ -329,10 +332,15 @@ function justCapsFirst(input) {
 function capC(input) {
     let split = input.split('');
     split.splice(3, 1, 'C')
-    let joined = thing.join('');
+    let joined = split.join('');
     return joined
 }
 
 function justLow(input) {
-    return input.toLowerCase()
+    let lowC =  input.toLowerCase()
+    if (lowC === "eyecolor") {
+        return capC(lowC)
+    } else {
+        return lowC
+    }
 }
