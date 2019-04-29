@@ -206,11 +206,11 @@ function searchByTrait(people) {
     case "weight":
       firstTrait = promptFor("What is the persons weight?", chars)
           firstTrait = justLow(firstTrait);
-          firstTrait = capC(firstTrait);
           break;
     case "eyecolor":
       firstTrait = promptFor("What is the persons eye color?", chars)
           firstTrait = justLow(firstTrait);
+          firstTrait = capC(firstTrait);
           break;
     case "occupation":
       firstTrait = promptFor("What is the persons occupation?", chars)
