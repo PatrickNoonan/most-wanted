@@ -304,7 +304,7 @@ function yesNo(input) {
 
 // helper function to pass in as default promptFor validation
 function chars(input) {
-  if (input.match(/^[a-z0-9\/]+$/i)) {
+  if (input.match(/^[a-z0-9\/ ]+$/i)) {
     return true; // default validation only
   } else {
     let invalidCharSwitch = prompt("You have entered invalid characters, would you like to try again? (yes = try again, no = restart program)")
