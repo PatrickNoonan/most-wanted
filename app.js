@@ -214,7 +214,6 @@ function searchByTrait(people) {
     case "eyecolor":
       firstTrait = promptFor("What is the persons eye color?", chars)
           
-          firstTrait = capC(firstTrait);
           break;
     case "occupation":
       firstTrait = promptFor("What is the persons occupation?", chars)
@@ -246,7 +245,6 @@ function searchByTrait(people) {
     case "eyeColor":
       secondTrait = promptFor("What is the persons eye color?", chars)
           
-          secondTrait = capC(secondTrait);
           break;
     case "occupation":
       secondTrait = promptFor("What is the persons occupation?", chars)
