@@ -82,7 +82,7 @@ function mainMenu(person, people) {
     return app(people);
 
   }
-  var displayOption = promptFor("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'immediate family', or 'descendants'? Type the option you want or 'restart' or 'quit'", chars);
+    var displayOption = promptFor("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'immediate family', or 'descendants'? Type the option you want or 'restart' or 'quit'", chars).toLowerCase();
   let currentYear = new Date().getFullYear();
 
   let justYear = person[0].dob.split('/');
@@ -181,9 +181,9 @@ function mainMenu(person, people) {
 
 function searchByName(people) {
 
-  var firstName = promptFor("What is the person's first name?", chars);
+    var firstName = promptFor("What is the person's first name?", chars).toLowerCase();
   firstName = justCapsFirst(firstName);
-  var lastName = promptFor("What is the person's last name?", chars);
+    var lastName = promptFor("What is the person's last name?", chars).toLowerCase();
   lastName = justCapsFirst(lastName);
 
   var foundPerson = people.filter(function (person) {
@@ -273,7 +273,7 @@ function searchByTrait(people) {
 //search based on single criterion
 function searchByTrait(people) {
   let theTrait;
-  let chooseTheTrait = promptFor("What is a trait you would like to search the database for? (gender, dob, height, weight, eye color, or occupation)", chars);
+    let chooseTheTrait = promptFor("What is a trait you would like to search the database for? (gender, dob, height, weight, eye color, or occupation)", chars).toLowerCase();
   chooseTheTrait.toLowerCase();
 
   switch (chooseTheTrait) {
@@ -315,11 +315,30 @@ function searchByTrait(people) {
 //search based on two to five criterion
 function searchByTraits(people) {
 
-  let arrayLength = promptFor("How many traits would you like to search for?(up to 5)", chars);
+    let arrayLength = promptFor("How many traits would you like to search for?(up to 5)", chars);
+    switch (arrayLength) {
+        case "2":
+            arrayLength = 2;
+            break;
+        case "3":
+            arrayLength = 3;
+            break;
+        case "4":
+            arrayLength = 4;
+            break;
+        case "5":
+            arrayLength = 5;
+            break;
+        default:
+            alert("That was not an option. Please try again.")
+            return searchByTraits(people);
+            
+    }
+        
   let traitArray = [];
 
   for (let i = 0; i < arrayLength; i++) {
-    traitArray.push(promptFor("What is one of the persons traits you know? (gender, height, weight, eyeColor, or occupation)", chars));
+      traitArray.push(promptFor("What is one of the persons traits you know? (gender, height, weight, eyeColor, or occupation)", chars).toLowerCase());
   }
 
   let traitValueArray = [];
@@ -327,22 +346,22 @@ function searchByTraits(people) {
   for (let i = 0; i < traitArray.length; i++) {
     switch (traitArray[i]) {
       case "gender":
-        traitValueArray.push(promptFor("What is the persons gender?", chars));
+            traitValueArray.push(promptFor("What is the persons gender?", chars).toLowerCase());
         break;
       case "dob":
-        traitValueArray.push(promptFor("What is the persons date of birth?", chars));
+            traitValueArray.push(promptFor("What is the persons date of birth?", chars).toLowerCase());
         break;
       case "height":
-        traitValueArray.push(promptFor("What is the persons height?", chars));
+            traitValueArray.push(promptFor("What is the persons height?", chars).toLowerCase());
         break;
       case "weight":
-        traitValueArray.push(promptFor("What is the persons weight?", chars));
+            traitValueArray.push(promptFor("What is the persons weight?", chars).toLowerCase());
         break;
-      case "eyeColor":
-        traitValueArray.push(promptFor("What is the persons eye color?", chars));
+      case "eyecolor":
+            traitValueArray.push(promptFor("What is the persons eye color?", chars).toLowerCase());
         break;
       case "occupation":
-        traitValueArray.push(promptFor("What is the persons occupation?", chars));
+            traitValueArray.push(promptFor("What is the persons occupation?", chars).toLowerCase());
         break;
       default:
         return "not a valid input";
@@ -370,8 +389,11 @@ let result = allTraitsArray.shift().filter(function(el) {
       return el2.indexOf(el) !== -1;
   });
 });
-
-alert(result);
+    if (result.length == 0) {
+        alert("No one was found with all of those traits")
+    } else {
+        alert(result);
+    }
 }
 
 
@@ -441,13 +463,13 @@ function justCapsFirst(input) {
   return firstCap;
 };
 
-/*
-function capC(input) {
+
+/*function capC(input) {
   let split = input.split('');
   split.splice(3, 1, 'C')
   let joined = split.join('');
   return joined
-}
+}*/
 
 
 function justLow(input) {
@@ -458,4 +480,3 @@ function justLow(input) {
     return lowC
   }
 }
-*/
