@@ -55,10 +55,6 @@ function mainMenu(person, people) {
   let age = currentYear - justYear[2];
 
 
-
-
-
-
   switch (displayOption) {
     case "immediate family":
     let immedParentsArray = people.filter(function (el) {
@@ -289,13 +285,6 @@ let result = allTraitsArray.shift().filter(function(el) {
         alert(result);
     }
 }
-
-
-
-
-
-
-
 
 // alerts a list of people
 function displayPeople(people) {
