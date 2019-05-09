@@ -29,40 +29,6 @@ function app(people) {
       break;
   }
 }
-/*---------------------------
-function pickATraitAndSearch(people)
-{
-  let displayTraitOption = promptFor("Would you like to see a list of available traits? Enter 'yes' or 'no'", yesNo).toLowerCase();
-  if (displayTraitOption == "yes"){
-    displayTraits(people);//display traits will go through all of people and create an array of unique traits it comes across
-    }
-    var searchType = promptFor("Do you know the trait of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
-    switch (searchType) {
-      case 'yes':
-        var foundPerson = searchByName(people);
-        mainMenu(foundPerson, people);
-        break;
-      case 'no':
-        foundPerson = searchByTrait(people);
-        mainMenu(foundPerson, people)
-        break;   
-      default:
-        app(people); // restart app
-        break;
-    }
-}
-
-function displayTraits(people)
-{
-  alert(people.filter(function (person) {
-    return person.gender + " " + person.height + " " + person.weight + " " + person.eyeColor + " " + person.occupation;
-  }).join("\n"));
-}
-/*
-array.map(item => item.age)
-  .filter((value, index, self) => self.indexOf(value) === index)
-
-  ------------------------------------------------------------*/
 
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people) {
@@ -198,78 +164,6 @@ function searchByName(people) {
   return foundPerson;
 }
 
-/*
-function searchByTrait(people) {
-    let chooseTraitOne = promptFor("What is persons the first trait you know? (gender, dob, height, weight, eyecolor, or occupation)", chars)
-    chooseTraitOne = justLow(chooseTraitOne)
-    
-    let chooseTraitTwo = promptFor("What is persons the second trait you know? (gender, dob, height, weight, eyecolor, or occupation)", chars)
-    chooseTraitTwo = justLow(chooseTraitTwo)
-    
-  let firstTrait;
-  let secondTrait;
-
-  switch (chooseTraitOne) {
-    case "gender":
-      firstTrait = promptFor("What is the persons gender?", chars)
-          
-          break;
-    case "dob":
-      firstTrait = promptFor("What is the persons date of birth?", chars)
-          
-          break;
-    case "height":
-      firstTrait = promptFor("What is the persons height?", chars)
-          
-          break;
-    case "weight":
-      firstTrait = promptFor("What is the persons weight?", chars)
-          
-          break;
-    case "eyecolor":
-      firstTrait = promptFor("What is the persons eye color?", chars)
-          
-          break;
-    case "occupation":
-      firstTrait = promptFor("What is the persons occupation?", chars)
-          
-          break;
-    default:
-      return "not a valid input";
-  }
-
-  switch (chooseTraitTwo) {
-    case firstTrait:
-      alert("You've already chosen this trait")
-    case "gender":
-      secondTrait = promptFor("What is the persons gender?", chars)
-          
-          break;
-    case "dob":
-      secondTrait = promptFor("What is the persons date of birth?", chars)
-          
-          break;
-    case "height":
-      secondTrait = promptFor("What is the persons height?", chars)
-          
-          break;
-    case "weight":
-      secondTrait = promptFor("What is the persons weight?", chars)
-          
-          break;
-    case "eyeColor":
-      secondTrait = promptFor("What is the persons eye color?", chars)
-          
-          break;
-    case "occupation":
-      secondTrait = promptFor("What is the persons occupation?", chars)
-          break;
-    default:
-      alert("Not a valid input, restarting program :)");
-      return app(people);
-  }
-  */
-
 //search based on single criterion
 function searchByTrait(people) {
   let theTrait;
@@ -338,7 +232,7 @@ function searchByTraits(people) {
   let traitArray = [];
 
   for (let i = 0; i < arrayLength; i++) {
-      traitArray.push(promptFor("What is one of the persons traits you know? (gender, height, weight, eyeColor, or occupation)", chars).toLowerCase());
+      traitArray.push(promptFor("What is one of the persons traits you know? (gender, height, weight, eyeColor, or occupation)", chars));
   }
 
   let traitValueArray = [];
@@ -357,7 +251,7 @@ function searchByTraits(people) {
       case "weight":
             traitValueArray.push(promptFor("What is the persons weight?", chars).toLowerCase());
         break;
-      case "eyecolor":
+      case "eyeColor":
             traitValueArray.push(promptFor("What is the persons eye color?", chars).toLowerCase());
         break;
       case "occupation":
